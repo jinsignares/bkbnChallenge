@@ -2,6 +2,7 @@ import {legacy_createStore as createStore, combineReducers, applyMiddleware} fro
 import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import { contactsReducer } from './reducers/contactsReducer';
+import { createWrapper } from "next-redux-wrapper";
 
 const rootReducer = combineReducers({
     contacts: contactsReducer,
@@ -15,10 +16,12 @@ const initialState = {};
 
 const middleware = [thunk];
 
-const store = createStore(
-  rootReducer,
-  initialState,
-  composeEnhancers(applyMiddleware(...middleware))
-);
+const initStore = () => {
+    return createStore(
+        rootReducer,
+        initialState,
+        composeEnhancers(applyMiddleware(...middleware))
+      );
+}
 
-export default store;
+export const wrapper = createWrapper(initStore);
