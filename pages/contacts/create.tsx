@@ -16,7 +16,6 @@ import FormInput from '../../components/FormInput';
 import { registerContact } from '../../redux/actions/contactsActions';
 import { contactSchema } from '../../validations/contactSchema';
 
-// 👇 Styled React Route Dom Link Component
 export const LinkItem = styled(Link)`
     text-decoration: none;
     color: #3683dc;
@@ -26,7 +25,6 @@ export const LinkItem = styled(Link)`
     }
   `;
 
-// 👇 Styled Material UI Link Component
 export const OauthMuiLink = styled(MuiLink)`
     display: flex;
     justify-content: center;

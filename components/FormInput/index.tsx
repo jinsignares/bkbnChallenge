@@ -39,7 +39,6 @@ const CssTextField = styled(TextField)({
 });
 
 const FormInput: FC<FormInputProps> = ({ name, ...otherProps }) => {
-    // 👇 Utilizing useFormContext to have access to the form Context
     const {
         control,
         formState: { errors },
@@ -57,7 +56,7 @@ const FormInput: FC<FormInputProps> = ({ name, ...otherProps }) => {
                     variant='outlined'
                     sx={{ mb: '1.5rem' }}
                     error={!!errors[name]}
-                    helperText={errors[name] ? errors[name].message : ''}
+                    helperText={errors ? errors[name].message : ''}
                 />
             )}
         />
