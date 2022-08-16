@@ -37,8 +37,6 @@ function getComparator<Key extends keyof any>(
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
 function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
   stabilizedThis.sort((a, b) => {
@@ -79,12 +77,12 @@ const headCells: readonly HeadCell[] = [
     label: 'Email',
   },
   {
-    id: 'update',
+    id: 'actions',
     numeric: false,
     label: 'Update',
   },
   {
-    id: 'delete',
+    id: 'actions',
     numeric: false,
     label: 'Delete',
   },
@@ -110,11 +108,11 @@ function EnhancedTableHead(props: EnhancedTableProps) {
       <TableRow>
         {headCells.map((headCell) => (
           <TableCell
-            key={headCell.id}
+            key={`${headCell.id}-${headCell.label}`}
             align={'center'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
-            {(headCell.id !== 'update' || headCell.id !== 'delete') ? (
+            {headCell.id !== 'actions' ? (
               <TableSortLabel
                 active={orderBy === headCell.id}
                 direction={orderBy === headCell.id ? order : 'asc'}
@@ -169,7 +167,7 @@ export default function EnhancedTable({ rows }) {
 
   return (
     <Box sx={{
-      py: '6rem',
+      pt: '6rem',
       width: '100%'
     }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
@@ -205,7 +203,7 @@ export default function EnhancedTable({ rows }) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const labelId = `enhanced-table-checkbox-${index}`;
+                  const labelId = `${index}`;
 
                   return (
                     <TableRow

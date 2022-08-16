@@ -62,7 +62,6 @@ export const registerContact = (values, callback) => async (dispatch) => {
             callback()
             dispatch(setAlert('Created contact successfully!', 'success'))
         } else {
-            console.log(response)
             dispatch({
                 type: REGISTER_CONTACT_FAIL,
                 payload: response.message
@@ -93,6 +92,12 @@ export const updateContact = (id, values) => async (dispatch) => {
                 payload: response.data,
             })
             dispatch(setAlert('Updated contact successfully!', 'success'))
+        } else {
+            dispatch({
+                type: UPDATE_CONTACT_FAIL,
+                payload: response.message
+            })
+            dispatch(setAlert(response.response.data.message, 'error'))
         }
     } catch (error) {
         dispatch({
