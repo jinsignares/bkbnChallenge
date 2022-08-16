@@ -18,17 +18,16 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
+## BKBN Challenge Initial Approach
 
-To learn more about Next.js, take a look at the following resources:
+En este repositiorio abordé la mayoría de los requerimientos como también algunos de los mencionados en la sección Plus.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Para empezar el projecto está desarrollado utilizando NextJS, aproveché su organicación en carpetas para proporcionar las rutas requeridas en el reto. Así mismo, las cuatro operaciones del CRUD se pueden realizar a través de esta aplicación. Se utilizó React Redux para el manejo de estado en el app. Para los fetch de información utilicé Axios
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+La ruta "/contacts" la cual está configurada como el índice de la aplicación por defecto sería el Read de las operaciones. En ella se muestra una tabla con todos los registros retornados por el API en una componente tipo Enhanced Table de MaterialUI. En este componente, se resumen todas las entradas y le da al usuario la opción de ver la información de manera paginada. De la misma manera, el usuario tiene a opción de escoger el número de registros que se muestran en la tabla.
 
-## Deploy on Vercel
+En segunda instancia, la ruta "/contacts/create" es accesible a través del botón en el header de la tabla con titulo de "New Contact". En esta página, el usuario tiene la opción de crear un nuevo contacto en un formulario de material UI. Este formulario utiliza el paquete React Hook Form en conjunto con el paquete yup para el manejo y validación de la data introducida en los inputs. Nótese que las validaciones implementadas son para evitar envío de campos vacíos o data incompatible (texto en campo de número y validación de email).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Suguiendo con las operaciones del CRUD, continuamos con el Update y Delete. Estas son accesibles a través de la tabla en sí. Existen dos IconButton de Material UI que brindan acceso a las rutas "/[id]/update" y "/[id]/delete" y son realizadas en diferentes páginas como es solicitado en la prueba técnica. En el update se hace uso del método setValue de React Hook Form para poblar los inputs con la información original del contacto antes de la edición. Nuevamente, se realizan las validaciones como en el Create y si la información es válida, al enviar la información, esta será agregada al récord de la tabla. En el link de delete, simplemente se redirecciona al usuario a una página donde se muestra la información del contacto en cuestión y al dar click en el botón de Delete este será borrado del récord.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Finalmente a manera de plus, incluí las alertas al usuario utilizando un componente SnackBar de MaterialUI.
