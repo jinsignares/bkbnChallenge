@@ -60,6 +60,7 @@ export const contactsReducer = (
     case REGISTER_CONTACT_SUCCESS:
       return {
         ...state,
+        loading: false,
         results: [...state.results, payload.data]
       };
     case REGISTER_CONTACT_FAIL:

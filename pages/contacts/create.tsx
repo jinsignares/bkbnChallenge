@@ -10,13 +10,11 @@ import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import styled from '@emotion/styled';
 import Link from 'next/link';
-import { object } from 'yup';
-import * as yup from 'yup'
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import FormInput from '../../components/FormInput';
 import { registerContact } from '../../redux/actions/contactsActions';
-import { emptyStringToNull } from '../../helpers/yupHelpers';
+import { contactSchema } from '../../validations/contactSchema';
 
 // 👇 Styled React Route Dom Link Component
 export const LinkItem = styled(Link)`
@@ -48,14 +46,7 @@ export const OauthMuiLink = styled(MuiLink)`
     }
   `;
 
-const createSchema = object({
-    firstName: yup.string().min(1, 'First name is required'),
-    lastName: yup.string().min(1, 'Last name is required'),
-    email: yup.string().min(1, 'Email is required').email('Email is invalid'),
-    phone: yup.string().transform(emptyStringToNull).nullable().required('Phone is required'),
-});
-
-type ICreate = TypeOf<typeof createSchema>;
+type ICreate = TypeOf<typeof contactSchema>;
 
 const Create: FC = () => {
     const router = useRouter()
@@ -68,7 +59,7 @@ const Create: FC = () => {
     };
 
     const methods = useForm<ICreate>({
-        resolver: yupResolver(createSchema),
+        resolver: yupResolver(contactSchema),
         defaultValues,
     });
 
@@ -138,7 +129,7 @@ const Create: FC = () => {
                                     required
                                 />
                                 <FormInput
-                                    type='phone'
+                                    type='number'
                                     label='Phone'
                                     name='phone'
                                     required

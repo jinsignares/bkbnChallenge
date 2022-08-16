@@ -208,7 +208,7 @@ export default function EnhancedTable({ rows }) {
                   return (
                     <TableRow
                       tabIndex={-1}
-                      key={row.firstName}
+                      key={`${row.firstName}-${row.phone}-${row.email}`}
                     >
 
                       <TableCell

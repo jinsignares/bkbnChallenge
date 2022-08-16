@@ -6,24 +6,15 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { object } from 'yup'
-import * as yup from 'yup'
 import FormInput from '../../../components/FormInput'
 import { fetchContact, updateContact } from '../../../redux/actions/contactsActions'
-import { emptyStringToNull } from '../../../helpers/yupHelpers'
+import { contactSchema } from '../../../validations/contactSchema'
 
 const Update: NextPage = () => {
     const router = useRouter()
     const { id } = router.query
     const dispatch = useDispatch()
     const toUpdate = useSelector(state => state.contacts.result)
-
-    const createSchema = object({
-        firstName: yup.string().min(1, 'First name is required'),
-        lastName: yup.string().min(1, 'Last name is required'),
-        email: yup.string().min(1, 'Email is required').email('Email is invalid'),
-        phone: yup.string().transform(emptyStringToNull).nullable().required('Phone is required'),
-    });
 
     const defaultValues: ICreate = {
         firstName: '',
@@ -33,7 +24,7 @@ const Update: NextPage = () => {
     };
 
     const methods = useForm<ICreate>({
-        resolver: yupResolver(createSchema),
+        resolver: yupResolver(contactSchema),
         defaultValues,
     });
 
@@ -119,7 +110,7 @@ const Update: NextPage = () => {
                                         required
                                     />
                                     <FormInput
-                                        type='phone'
+                                        type='number'
                                         label='Phone'
                                         name='phone'
                                         required
