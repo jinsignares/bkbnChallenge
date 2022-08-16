@@ -79,12 +79,12 @@ const headCells: readonly HeadCell[] = [
     label: 'Email',
   },
   {
-    id: 'actions',
+    id: 'update',
     numeric: false,
     label: 'Update',
   },
   {
-    id: 'actions',
+    id: 'delete',
     numeric: false,
     label: 'Delete',
   },
@@ -114,7 +114,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
             align={'center'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
-            {headCell.id !== 'actions' ? (
+            {(headCell.id !== 'update' || headCell.id !== 'delete') ? (
               <TableSortLabel
                 active={orderBy === headCell.id}
                 direction={orderBy === headCell.id ? order : 'asc'}
@@ -143,7 +143,7 @@ export default function EnhancedTable({ rows }) {
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof Data>('firstName');
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(7);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -186,7 +186,7 @@ export default function EnhancedTable({ rows }) {
           >
             Contact Info
           </Typography>
-          <Link href='/create'>
+          <Link href='/contacts/create'>
             <Button sx={{ width: '160px' }} variant="contained" color='primary'>New Contact</Button>
           </Link>
         </Toolbar>

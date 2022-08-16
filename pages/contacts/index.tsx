@@ -2,10 +2,11 @@ import { Delete, Edit } from '@mui/icons-material'
 import { Grid, IconButton } from '@mui/material'
 import type { NextPage } from 'next'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import EnhancedTable from '../components/Table'
-import { fetchContacts } from '../redux/actions/contactsActions'
+import EnhancedTable from '../../components/Table'
+import { fetchContacts } from '../../redux/actions/contactsActions'
 interface Data {
   firstName: string,
   lastName: string,
@@ -46,12 +47,12 @@ const Home: NextPage = () => {
         return contacts.map(({ id, firstName, lastName, phone, email, createdAt, updatedAt }) => {
           const actions = [
             () => (<IconButton>
-              <Link href={`/${id}/update`}>
+              <Link href={`/contacts/${id}/update`}>
                 <Edit />
               </Link>
             </IconButton>),
             () => (<IconButton>
-              <Link href={`/${id}/delete`}>
+              <Link href={`/contacts/${id}/delete`}>
                 <Delete />
               </Link>
             </IconButton>)

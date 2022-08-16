@@ -8,14 +8,14 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { FC } from 'react';
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import FormInput from '../components/FormInput';
+import FormInput from '../../components/FormInput';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { object } from 'yup';
 import * as yup from 'yup'
-import { emptyStringToNull } from '../helpers/yupHelpers';
+import { emptyStringToNull } from '../../helpers/yupHelpers';
 import { useDispatch } from 'react-redux';
-import { registerContact } from '../redux/actions/contactsActions';
+import { registerContact } from '../../redux/actions/contactsActions';
 import { useRouter } from 'next/router';
 
 // 👇 Styled React Route Dom Link Component
@@ -73,8 +73,7 @@ const Create: FC = () => {
     });
 
     const onSubmitHandler: SubmitHandler<ICreate> = (values: ICreate) => {
-        dispatch(registerContact(values))
-        router.back()
+        dispatch(registerContact(values, () => router.back()))
     };
 
     return (
@@ -113,7 +112,6 @@ const Create: FC = () => {
                                 flexDirection='column'
                                 component='form'
                                 noValidate
-                                autoComplete='off'
                                 sx={{ width: '100%' }}
                                 onSubmit={methods.handleSubmit(onSubmitHandler)}
                             >
@@ -164,7 +162,7 @@ const Create: FC = () => {
                                         marginInline: 'auto',
                                     }}
                                 >
-                                    Login
+                                    Create new contact
                                 </LoadingButton>
                             </Box>
                         </Grid>

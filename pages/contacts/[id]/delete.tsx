@@ -4,7 +4,7 @@ import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteContact, fetchContact } from '../../redux/actions/contactsActions'
+import { deleteContact, fetchContact } from '../../../redux/actions/contactsActions'
 
 const Delete: NextPage = () => {
     const router = useRouter()
@@ -12,7 +12,7 @@ const Delete: NextPage = () => {
     const dispatch = useDispatch()
     const toDelete = useSelector(state => state.contacts.result)
 
-    const handleDelete = (id) => {
+    const handleDelete = () => {
         dispatch(deleteContact(id))
         router.back()
     }
@@ -69,36 +69,69 @@ const Delete: NextPage = () => {
                                     Delete contact
                                 </Typography>
                                 <Box>
+
+                                <Typography
+                                        variant='body2'
+                                        component='p'
+                                        sx={{ textAlign: 'left', color: 'gray' }}
+                                    >
+                                        First Name
+                                    </Typography>
+
                                     <Box border={2}>
                                         <Typography
                                             variant='body1'
                                             component='p'
-                                            sx={{ textAlign: 'center', mb: '1.5rem', color: 'black' }}
+                                            sx={{ textAlign: 'left', mb: '1.5rem', color: 'black' }}
                                         >
                                             {toDelete.firstName}
                                         </Typography>
                                     </Box>
 
                                     <Typography
+                                        variant='body2'
+                                        component='p'
+                                        sx={{ textAlign: 'left', color: 'gray' }}
+                                    >
+                                        Last Name
+                                    </Typography>
+
+                                    <Typography
                                         variant='body1'
                                         component='p'
-                                        sx={{ textAlign: 'center', mb: '1.5rem', color: 'black' }}
+                                        sx={{ textAlign: 'left', mb: '1.5rem', color: 'black' }}
                                     >
                                         {toDelete.lastName}
                                     </Typography>
 
                                     <Typography
-                                        variant='body1'
+                                        variant='body2'
                                         component='p'
-                                        sx={{ textAlign: 'center', mb: '1.5rem', color: 'black' }}
+                                        sx={{ textAlign: 'left', color: 'gray' }}
                                     >
-                                        {toDelete.phone}
+                                        Phone
                                     </Typography>
 
                                     <Typography
                                         variant='body1'
                                         component='p'
-                                        sx={{ textAlign: 'center', mb: '1.5rem', color: 'black' }}
+                                        sx={{ textAlign: 'left', mb: '1.5rem', color: 'black' }}
+                                    >
+                                        {toDelete.phone}
+                                    </Typography>
+
+                                    <Typography
+                                        variant='body2'
+                                        component='p'
+                                        sx={{ textAlign: 'left', color: 'gray' }}
+                                    >
+                                        Email
+                                    </Typography>
+
+                                    <Typography
+                                        variant='body1'
+                                        component='p'
+                                        sx={{ textAlign: 'left', mb: '1.5rem', color: 'black' }}
                                     >
                                         {toDelete.email}
                                     </Typography>
@@ -106,9 +139,8 @@ const Delete: NextPage = () => {
 
                                 <LoadingButton
                                     loading={false}
-                                    type='submit'
                                     variant='contained'
-                                    onClick={id => handleDelete(id)}
+                                    onClick={handleDelete}
                                     sx={{
                                         py: '0.8rem',
                                         mt: 2,

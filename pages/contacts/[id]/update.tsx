@@ -8,9 +8,9 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { object } from 'yup'
 import * as yup from 'yup'
-import FormInput from '../../components/FormInput'
-import { fetchContact, updateContact } from '../../redux/actions/contactsActions'
-import { emptyStringToNull } from '../../helpers/yupHelpers'
+import FormInput from '../../../components/FormInput'
+import { fetchContact, updateContact } from '../../../redux/actions/contactsActions'
+import { emptyStringToNull } from '../../../helpers/yupHelpers'
 
 const Update: NextPage = () => {
     const router = useRouter()

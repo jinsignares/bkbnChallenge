@@ -2,7 +2,15 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  basePath: '/contacts',
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/contacts',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig

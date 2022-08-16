@@ -93,9 +93,15 @@ export const contactsReducer = (
         loading: true,
       };
     case DELETE_CONTACT_SUCCESS:
+      const toDelete = state.results.findIndex(toUpdate => toUpdate.id == payload)
+      const array = [...state.results];
+      if (toDelete > -1) {
+        array.splice(toDelete, 1);
+      }
       return {
         ...state,
         loading: false,
+        results: [...array],
         result: null
       };
     case DELETE_CONTACT_FAIL:

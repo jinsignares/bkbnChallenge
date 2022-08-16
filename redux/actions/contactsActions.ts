@@ -45,7 +45,7 @@ export const fetchContact = (id) => async (dispatch) => {
     }
 };
 
-export const registerContact = (values) => async (dispatch) => {
+export const registerContact = (values, callback) => async (dispatch) => {
     try {
         dispatch({
             type: REGISTER_CONTACT_REQUEST
@@ -59,14 +59,22 @@ export const registerContact = (values) => async (dispatch) => {
                 type: REGISTER_CONTACT_SUCCESS,
                 payload: response,
             })
+            callback()
             dispatch(setAlert('Created contact successfully!', 'success'))
+        } else {
+            console.log(response)
+            dispatch({
+                type: REGISTER_CONTACT_FAIL,
+                payload: response.message
+            })
+            dispatch(setAlert(response.response.data.message, 'error'))
         }
     } catch (error) {
         dispatch({
             type: REGISTER_CONTACT_FAIL,
-            payload: error.message
+            payload: error.response
         })
-        dispatch(setAlert(error.message, 'error'))
+        dispatch(setAlert(error.response, 'error'))
     }
 }
 
@@ -84,7 +92,7 @@ export const updateContact = (id, values) => async (dispatch) => {
                 type: UPDATE_CONTACT_SUCCESS,
                 payload: response.data,
             })
-            dispatch(fetchContacts())
+            dispatch(setAlert('Updated contact successfully!', 'success'))
         }
     } catch (error) {
         dispatch({
@@ -107,7 +115,7 @@ export const deleteContact = (id) => async (dispatch) => {
         if (response.status == 200) {
             dispatch({
                 type: DELETE_CONTACT_SUCCESS,
-                payload: response,
+                payload: id,
             })
             dispatch(setAlert('Contact deleted.', 'info'))
         }
